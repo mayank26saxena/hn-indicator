@@ -8,6 +8,7 @@ from gi.repository import AppIndicator3 as appindicator
 from gi.repository import Notify as notify
 from hackernews import HackerNews
 
+
 #KEYWORDS
 APPINDICATOR_ID = 'hn-news-indicator'
 LIMIT = 3
@@ -19,6 +20,7 @@ ids = []
 titles = []
 points = []
 urls = []
+
 news = ['?']*LIMIT
 item = ['?']*LIMIT
 
@@ -28,6 +30,7 @@ def main():
     indicator.set_menu(build_menu())
     notify.init(APPINDICATOR_ID)
     gtk.main()
+    gtk.timeout_add(5000, update_widget)
     
 def build_menu():
     menu = gtk.Menu()
@@ -48,7 +51,7 @@ def build_menu():
     menu.append(separator)
 
     item_refresh = gtk.MenuItem('Refresh')
-    item_refresh.connect('activate' , main)
+    item_refresh.connect('activate' , refresh)
     menu.append(item_refresh)
 
     item_quit = gtk.MenuItem('Quit')
@@ -67,7 +70,7 @@ def get_data():
     ids = hn.top_stories(limit=LIMIT)
     for i in range(0,LIMIT):
         b = hn.get_item(ids[i])
-        titles.append(b.title)
+        titles.append(b.title.encode('utf8'))
         points.append(b.score)
         urls.append(b.url) 
 
@@ -77,6 +80,17 @@ def get_data():
 
 def open_url(widget,url):
     webbrowser.open(url)
+
+def show_notification(title, message):
+    notify.Notification.new(title, message, None).show()
+
+def refresh(widget):
+    ids[:] = []
+    titles[:] = []
+    points[:] = []
+    urls[:] = []
+    build_menu()
+    show_notification("Hacker News Widget updated!", "Click on the widget to view updated news feed.")
 
 if __name__ == "__main__" :
     signal.signal(signal.SIGINT, signal.SIG_DFL)
