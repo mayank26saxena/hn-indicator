@@ -1,1 +1,1 @@
-panel indicator application to view live scores in ubuntu 14.04
+panel indicator application to view feed of hacker news.
