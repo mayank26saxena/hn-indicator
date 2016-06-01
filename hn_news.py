@@ -18,7 +18,7 @@ LIMIT = 10
 ONE_MINUTE = 1000*60
 ONE_HOUR = 60
 DURATION = 1
-REFRESH_DURATION = ONE_MINUTE*ONE_HOUR*DURATION
+REFRESH_DURATION = ONE_MINUTE*ONE_HOUR*DURATION #Feed will get updated every hour as default
 SPACE = ' '
 DASH = '-'
 POINTS = 'Points'
@@ -43,8 +43,6 @@ def build_menu():
     menu = gtk.Menu()
 
     get_data()
-
-    #print titles, points, urls
 
     global LIMIT
     print 'In build_menu() method and value of limit is - ' + str(LIMIT)
@@ -88,7 +86,6 @@ def build_menu():
     menu.append(item_quit)
             
     menu.show_all()
-    #print 'out'
 
     global REFRESH_DURATION
     timeout = glib.timeout_add_seconds(REFRESH_DURATION, update_timeout)
@@ -100,13 +97,8 @@ def update_time_interval(source):
     new_update_interval = int(source.get_label().split()[0])
     global REFRESH_DURATION
     global DURATION
-    print 'New time limit is : ' + str(new_update_interval)
-    print 'Old refresh interval is ' + str(REFRESH_DURATION)
-    print 'Old duration is ' + str(DURATION)
     DURATION = new_update_interval
     REFRESH_DURATION = ONE_MINUTE*ONE_HOUR*DURATION
-    print 'New duration is ' + str(DURATION) 
-    print 'New refresh interval is ' + str(REFRESH_DURATION)
     show_notification(None, "Settings updated!", "Successfully changed the refresh duration settings.")
 
     
@@ -123,9 +115,9 @@ def get_data():
         points.append(b.score)
         urls.append(b.url) 
 
-    print titles
-    print points
-    print urls
+    #print titles
+    #print points
+    #print urls
 
 def open_url(widget,url):
     if url is not None:
@@ -144,7 +136,6 @@ def update_timeout():
     return True
 
 def refresh():
-    print 'in refresh function'
     ids[:] = []
     titles[:] = []
     points[:] = []  
