@@ -8,12 +8,13 @@ from urllib2 import Request, urlopen, URLError
 import appindicator 
 import pynotify
 from hackernews import HackerNews
+import glib
 
 
 #KEYWORDS
 APPINDICATOR_ID = 'hn-indicator'
 PYNOTIFY_ID = 'hn-indicator'
-LIMIT = 3
+LIMIT = 10
 ONE_MINUTE = 1000*60
 ONE_HOUR = 60
 DURATION = 1
@@ -36,7 +37,7 @@ def main():
     indicator.set_menu(build_menu())
     pynotify.init(APPINDICATOR_ID)
     gtk.main()
-    #gtk.timeout_add(5000, update_widget)
+    timeout = glib.timeout_add_seconds(60, update_timeout)
     
 def build_menu():
     menu = gtk.Menu()
@@ -75,20 +76,6 @@ def build_menu():
     item_refresh_control.set_submenu(menu_refresh_control)
     menu.append(item_refresh_control)
 
-    item_feed_control = gtk.MenuItem("Adjust number of items in feed")
-    menu_feed_control = gtk.Menu()
-    menu_feed_control_items = []
-    group2 = [None]
-    number_of_items_list = [3,4,5]
-    for i in number_of_items_list:
-        subitem = gtk.RadioMenuItem(group2[0], str(i) + " items")
-        subitem.connect('activate', update_number_of_items_in_feed)
-        menu_feed_control.append(subitem)
-        menu_feed_control_items.append(subitem)
-        group2 = subitem.get_group()
-    item_feed_control.set_submenu(menu_feed_control)
-    menu.append(item_feed_control)
-
     separator2 = gtk.SeparatorMenuItem()
     menu.append(separator2)
 
@@ -101,12 +88,18 @@ def build_menu():
     menu.append(item_quit)
             
     menu.show_all()
+    #print 'out'
+
+    global REFRESH_DURATION
+    timeout = glib.timeout_add_seconds(REFRESH_DURATION, update_timeout)
+    
     return menu
 
 
 def update_time_interval(source):
     new_update_interval = int(source.get_label().split()[0])
     global REFRESH_DURATION
+    global DURATION
     print 'New time limit is : ' + str(new_update_interval)
     print 'Old refresh interval is ' + str(REFRESH_DURATION)
     print 'Old duration is ' + str(DURATION)
@@ -116,24 +109,13 @@ def update_time_interval(source):
     print 'New refresh interval is ' + str(REFRESH_DURATION)
     show_notification(None, "Settings updated!", "Successfully changed the refresh duration settings.")
 
-def update_number_of_items_in_feed(source):
-    new_items_limit = int(source.get_label().split()[0])
-    global LIMIT
-    print 'Old LIMIT is ' + str(LIMIT)
-    print 'New number of items in feed is : ' + str(new_items_limit)
-    LIMIT = new_items_limit
-    print 'New LIMIT is ' + str(LIMIT)
-    show_notification(None, "Settings updated!", "Successfully changed the number of items in feed settings.")
-    refresh
     
 def quit(widget):
-    #notify.uninit()
     show_notification(None, "Quitting", "Exiting from hn-indicator.")
     gtk.main_quit()
 
 def get_data():
     hn = HackerNews()
-    #global LIMIT
     ids = hn.top_stories(limit=LIMIT)
     for i in range(0,LIMIT):
         b = hn.get_item(ids[i])
@@ -146,18 +128,28 @@ def get_data():
     print urls
 
 def open_url(widget,url):
-    webbrowser.open(url)
+    if url is not None:
+        webbrowser.open(url)
+    else:
+        show_notification(None, "Error." , "Cannot open URL in browser.")
 
 def show_notification(self, title="Title", msg="Message", timeout=1000):
 		notification = pynotify.Notification(title, msg)
 		notification.set_timeout(timeout)
 		notification.show()
 
-def refresh(widget):
+def update_timeout():
+    print 'in update_timeout function'
+    refresh()
+    return True
+
+def refresh():
+    print 'in refresh function'
     ids[:] = []
     titles[:] = []
     points[:] = []  
     urls[:] = []
+
     build_menu()
     show_notification(None,"Hacker News Widget updated!", "Click on the widget to view updated news feed.")
 
