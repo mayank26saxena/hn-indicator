@@ -1,0 +1,13 @@
+Source: hn-indicator
+Maintainer: MayankSaxena <mayank26saxena@gmail.com>
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 9)
+Homepage: https://launchpad.net/~mayank26saxena/+archive/ubuntu/hn-indicator
+
+
+Package: hn-indicator
+Architecture: any
+Depends: ${python:Depends}
+Description: Hacker News Indicator.
