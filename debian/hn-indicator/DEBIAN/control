@@ -1,9 +1,0 @@
-Package: hn-indicator
-Version: 1.0
-Architecture: amd64
-Maintainer: MayankSaxena <mayank26saxena@gmail.com>
-Installed-Size: 26
-Section: misc
-Priority: optional
-Homepage: https://launchpad.net/~mayank26saxena/+archive/ubuntu/hn-indicator
-Description: Hacker News Indicator.

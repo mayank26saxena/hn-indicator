@@ -1,5 +1,5 @@
-hn-indicator (1.0) precise; urgency=low
+hn-indicator (1.0) trusty; urgency=low
 
-  * Initial release
+  * Initial Release.
 
- -- Mayank Saxena <mayank26saxena@gmail.com>  Thu, 2 June 2016 01:45:30 +0530
+ -- Mayank Saxena <mayank26saxena@gmail.com>  Sat, 04 Jun 2016 15:28:19 +0530

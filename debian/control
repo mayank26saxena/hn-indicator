@@ -1,11 +1,10 @@
 Source: hn-indicator
-Maintainer: MayankSaxena <mayank26saxena@gmail.com>
-Section: misc
+Section: gnome
 Priority: optional
-Standards-Version: 3.9.2
-Build-Depends: debhelper (>= 9)
+Maintainer: Mayank Saxena <mayank26saxena@gmail.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
 Homepage: https://launchpad.net/~mayank26saxena/+archive/ubuntu/hn-indicator
-
 
 Package: hn-indicator
 Architecture: any
