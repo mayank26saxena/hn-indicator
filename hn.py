@@ -2,7 +2,7 @@ import os
 import signal
 import json
 import webbrowser
-import pygtk
+#import pygtk
 import gtk
 from urllib2 import Request, urlopen, URLError
 import appindicator 
