@@ -25,3 +25,6 @@ sudo apt-get install hn-indicator
 
 ##Adjusting refresh duration.
 ![alt tag](https://github.com/mayank26saxena/hn-indicator/blob/master/screenshots/screenshot-2.png)
+
+#Contributing
+Use github's pull request/issues feature for all contributions.
