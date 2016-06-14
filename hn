@@ -148,5 +148,5 @@ def refresh():
 
 if __name__ == "__main__" :
     signal.signal(signal.SIGINT, signal.SIG_DFL)
-    show_notification(None, "Please Wait." , "Hacker News indicator is being setup for you.")
+    #show_notification(None, "Please Wait." , "Hacker News indicator is being setup for you.")
     main()
