@@ -33,7 +33,7 @@ news = ['?']*LIMIT
 item = ['?']*LIMIT
 
 def main():
-    indicator = appindicator.Indicator(APPINDICATOR_ID, os.path.abspath('/usr/share/iconshackernews.png'), appindicator.CATEGORY_COMMUNICATIONS)
+    indicator = appindicator.Indicator(APPINDICATOR_ID, os.path.abspath('/usr/share/icons/hackernews.png'), appindicator.CATEGORY_COMMUNICATIONS)
     indicator.set_status(appindicator.STATUS_ACTIVE)
     indicator.set_menu(build_menu())
     pynotify.init(APPINDICATOR_ID)
