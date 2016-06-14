@@ -3,6 +3,6 @@ Type=Application
 Encoding=UTF-8
 Name=hn-indicator
 Comment=A panel indicator for viewing the latest Hacker News feed.
-Exec=application
+Exec=/usr/bin/hn
 Icon=hackernews.png
 Terminal=false

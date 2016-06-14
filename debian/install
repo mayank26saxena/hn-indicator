@@ -1,2 +1,3 @@
-src/hn-indicator.desktop /usr/share/applications/
-src/hackernews.png /usr/share/icons/
+hn-indicator.desktop /usr/share/applications/
+hackernews.png /usr/share/icons/
+hn /usr/bin/
