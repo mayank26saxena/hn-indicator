@@ -133,10 +133,10 @@ def show_notification(self, title="Title", msg="Message", timeout=1000):
 
 def update_timeout():
     print 'in update_timeout function'
-    refresh()
+    refresh(widget)
     return True
 
-def refresh():
+def refresh(widget):
     ids[:] = []
     titles[:] = []
     points[:] = []  
